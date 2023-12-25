@@ -1,3 +1,5 @@
+import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/app_bar_profile.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/profile_page_body.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -6,9 +8,11 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text("ProfilePage"),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50),
+        child: AppBarProfile(),
       ),
+      body: ProfilePageBody(),
     );
   }
 }

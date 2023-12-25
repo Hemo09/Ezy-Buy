@@ -1,3 +1,4 @@
+import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/cart_page_body.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatelessWidget {
@@ -6,9 +7,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text("CartPage"),
-      ),
+      body: CartPageBody(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:ezy_buy/core/utils/app_images.dart';
+import 'package:ezy_buy/core/utils/widgets/app_name_shimmer.dart';
 import 'package:flutter/material.dart';
 
 class AppBarProfile extends StatelessWidget {
@@ -10,13 +11,7 @@ class AppBarProfile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: AppBar(
         leading: Image.asset(AppImages.shoppingCart),
-        title: const Text(
-          "EzyBuy",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: const CustomAppNamedShimmer(),
       ),
     );
   }

@@ -56,7 +56,7 @@ class _RootPageState extends State<RootPage> {
                 label: "Search"),
             NavigationDestination(
                 selectedIcon: Icon(IconlyBold.bag2),
-                icon: Icon(IconlyLight.bag2),
+                icon: Badge(label: Text('6'), child: Icon(IconlyLight.bag2)),
                 label: "Cart"),
             NavigationDestination(
                 selectedIcon: Icon(IconlyBold.profile),

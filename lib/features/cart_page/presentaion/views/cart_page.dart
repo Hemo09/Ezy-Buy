@@ -1,4 +1,5 @@
 import 'package:ezy_buy/core/utils/app_images.dart';
+import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/bottom_cart_page.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/cart_data_page.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/empty_cart.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class CartPage extends StatelessWidget {
             body: EmptyCartPage(),
           )
         : Scaffold(
+            bottomNavigationBar: const BottomCartPage(),
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(50),
               child: Padding(
@@ -28,10 +30,13 @@ class CartPage extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  actions: const [
-                    Icon(
-                      IconlyBold.delete,
-                      color: Colors.red,
+                  actions: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        IconlyBold.delete,
+                        color: Colors.red,
+                      ),
                     )
                   ],
                 ),

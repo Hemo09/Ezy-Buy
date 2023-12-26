@@ -1,3 +1,4 @@
+import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
 class AppColor {
@@ -7,4 +8,11 @@ class AppColor {
   static const Color darkScaffoldColor = Color.fromARGB(255, 9, 3, 27);
   static const Color darkPrimary = Color.fromARGB(255, 94, 75, 236);
   static const Color darkCardColor = Color.fromARGB(255, 13, 6, 37);
+}
+
+class AppConstants {
+  static List banners = [
+    AppImages.banner1,
+    AppImages.banner2,
+  ];
 }

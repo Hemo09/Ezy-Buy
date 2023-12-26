@@ -11,19 +11,22 @@ class ProfilePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          VisibiltyText(),
-          UserEmailAndImage(),
-          SizedBox(
-            height: 10,
-          ),
-          ProfileContent(),
-          SizedBox(
-            height: 7,
-          ),
-          ProfileFooter(),
-        ],
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            VisibiltyText(),
+            UserEmailAndImage(),
+            SizedBox(
+              height: 10,
+            ),
+            ProfileContent(),
+            SizedBox(
+              height: 7,
+            ),
+            ProfileFooter(),
+          ],
+        ),
       ),
     );
   }

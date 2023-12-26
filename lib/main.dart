@@ -1,7 +1,6 @@
 import 'package:ezy_buy/core/theme/theme_data.dart';
 import 'package:ezy_buy/core/theme/theme_provider.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
-import 'package:ezy_buy/features/root_page/root_page.dart';
 import 'package:ezy_buy/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';

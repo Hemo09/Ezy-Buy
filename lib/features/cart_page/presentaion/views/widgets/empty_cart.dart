@@ -2,8 +2,8 @@ import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/core/utils/widgets/custom_empty_cart.dart';
 import 'package:flutter/material.dart';
 
-class CartPageBody extends StatelessWidget {
-  const CartPageBody({super.key});
+class EmptyCartPage extends StatelessWidget {
+  const EmptyCartPage({super.key});
 
   @override
   Widget build(BuildContext context) {

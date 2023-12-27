@@ -1,6 +1,8 @@
+import 'package:ezy_buy/core/utils/app_router.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:go_router/go_router.dart';
 
 class GridViewItem extends StatelessWidget {
   const GridViewItem({super.key});
@@ -13,7 +15,9 @@ class GridViewItem extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(NamedRouteScreen.kItemDetails);
+            },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(19.0),
               child: FancyShimmerImage(

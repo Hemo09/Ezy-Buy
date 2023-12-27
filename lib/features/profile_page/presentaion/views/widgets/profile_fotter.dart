@@ -66,7 +66,7 @@ class ProfileFooter extends StatelessWidget {
                       ),
                       onPressed: () {},
                       icon: const Icon(IconlyLight.login),
-                      label: const Text("Login"))))
+                      label: const Text("Login")))),
         ],
       ),
     );

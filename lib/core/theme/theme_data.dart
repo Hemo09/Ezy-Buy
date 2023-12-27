@@ -40,6 +40,9 @@ class Style {
         ),
       ),
       appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(
+          color: isDarkTheme ? Colors.white : Colors.black,
+        ),
         elevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(

@@ -1,5 +1,6 @@
 import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/home_page.dart';
+import 'package:ezy_buy/features/_details/presentaion/views/item_details.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/profile_page.dart';
 import 'package:ezy_buy/features/root_page/root_page.dart';
 import 'package:ezy_buy/features/search_page/presentaion/views/search_page.dart';
@@ -11,6 +12,7 @@ class NamedRouteScreen {
   static const kProfilePage = "/profilePage";
   static const kSearchPage = "/searchPage";
   static const kcartPage = "/cartPage";
+  static const kItemDetails = "/ItemDetails";
 }
 
 class AppRoutes {
@@ -34,6 +36,10 @@ class AppRoutes {
     GoRoute(
       path: NamedRouteScreen.kcartPage,
       builder: (context, state) => const CartPage(),
+    ),
+    GoRoute(
+      path: NamedRouteScreen.kItemDetails,
+      builder: (context, state) => const ItemDetails(),
     ),
   ]);
 }

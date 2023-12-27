@@ -1,5 +1,5 @@
 import 'package:ezy_buy/core/utils/widgets/app_name_shimmer.dart';
-import 'package:ezy_buy/features/product_details/presentaion/views/widgets/item_details_body.dart';
+import 'package:ezy_buy/features/product_details/presentaion/views/widgets/product_details_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:go_router/go_router.dart';

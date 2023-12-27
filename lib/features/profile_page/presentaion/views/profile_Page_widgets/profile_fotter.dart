@@ -1,6 +1,6 @@
 import 'package:ezy_buy/core/theme/theme_provider.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
-import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/custom_list_tile.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/profile_Page_widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';

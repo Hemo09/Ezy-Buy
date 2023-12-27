@@ -1,7 +1,6 @@
 import 'package:ezy_buy/core/helper/favourite_icon.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
 class LatestArrival extends StatelessWidget {
   const LatestArrival({super.key});

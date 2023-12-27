@@ -1,7 +1,7 @@
-import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/profile_content.dart';
-import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/profile_fotter.dart';
-import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/user_email_photo_profile.dart';
-import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/visibilty_text.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/profile_Page_widgets/profile_content.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/profile_Page_widgets/profile_fotter.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/profile_Page_widgets/user_email_photo_profile.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/profile_Page_widgets/visibilty_text.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePageBody extends StatelessWidget {

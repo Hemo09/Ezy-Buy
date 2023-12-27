@@ -2,6 +2,7 @@ import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/home_page.dart';
 import 'package:ezy_buy/features/product_details/presentaion/views/item_details.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/profile_page.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/wish_list.dart';
 import 'package:ezy_buy/features/root_page/root_page.dart';
 import 'package:ezy_buy/features/search_page/presentaion/views/search_page.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +14,7 @@ class NamedRouteScreen {
   static const kSearchPage = "/searchPage";
   static const kcartPage = "/cartPage";
   static const kItemDetails = "/ItemDetails";
+  static const kWishList = "/kWishList";
 }
 
 class AppRoutes {
@@ -40,6 +42,10 @@ class AppRoutes {
     GoRoute(
       path: NamedRouteScreen.kItemDetails,
       builder: (context, state) => const ItemDetails(),
+    ),
+    GoRoute(
+      path: NamedRouteScreen.kWishList,
+      builder: (context, state) => const WishList(),
     ),
   ]);
 }

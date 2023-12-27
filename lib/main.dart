@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             routerConfig: AppRoutes.routes,
             debugShowCheckedModeBanner: false,
             theme: Style.themeData(
-                isDarkTheme: themeProvider.isDarkMode(), context: context),
+                isDarkTheme: themeProvider.isDarkMode, context: context),
           );
         },
       ),

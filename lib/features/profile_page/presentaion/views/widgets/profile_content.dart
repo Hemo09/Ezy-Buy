@@ -1,6 +1,6 @@
 import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
-import 'package:ezy_buy/features/profile_page/presentaion/views/profile_Page_widgets/custom_list_tile.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -39,7 +39,9 @@ class ProfileContent extends StatelessWidget {
           CustomListTile(
             pathImage: AppImages.recent,
             text: "Viewed recently",
-            press: () {},
+            press: () {
+              GoRouter.of(context).push(NamedRouteScreen.kViewedRecently);
+            },
           ),
           CustomListTile(
             pathImage: AppImages.address,

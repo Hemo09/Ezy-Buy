@@ -8,7 +8,7 @@ class LatestArrivalList extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height * .3,
+      height: size.height * .2,
       width: size.width * 3,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),

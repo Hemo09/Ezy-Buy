@@ -1,6 +1,6 @@
 import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/home_page.dart';
-import 'package:ezy_buy/features/_details/presentaion/views/item_details.dart';
+import 'package:ezy_buy/features/product_details/presentaion/views/item_details.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/profile_page.dart';
 import 'package:ezy_buy/features/root_page/root_page.dart';
 import 'package:ezy_buy/features/search_page/presentaion/views/search_page.dart';

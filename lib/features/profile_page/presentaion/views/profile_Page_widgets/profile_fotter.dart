@@ -1,3 +1,4 @@
+import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/theme/theme_provider.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/custom_list_tile.dart';
@@ -64,7 +65,10 @@ class ProfileFooter extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        await AppFunction.showWariningAlert(
+                            context: context, press: () {}, title: "Error");
+                      },
                       icon: const Icon(IconlyLight.login),
                       label: const Text("Login")))),
         ],

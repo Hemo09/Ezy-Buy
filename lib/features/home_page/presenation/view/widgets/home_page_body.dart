@@ -16,7 +16,29 @@ class HomepageBody extends StatelessWidget {
           SizedBox(
             height: 15,
           ),
+          LatestArrivalList(),
         ],
+      ),
+    );
+  }
+}
+
+class LatestArrivalList extends StatelessWidget {
+  const LatestArrivalList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return SizedBox(
+      height: size.height * .3,
+      width: size.width * 3,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return const LatestArrival();
+        },
+        itemCount: 13,
       ),
     );
   }
@@ -28,10 +50,13 @@ class LatestArrival extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height * 0.3,
-      child: Flexible(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: size.width * .53,
+        height: size.height * .15,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
@@ -46,24 +71,56 @@ class LatestArrival extends StatelessWidget {
             ),
             Flexible(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(
                     child: SizedBox(
                       width: size.width * .9,
-                      child: Text(
+                      child: const Text(
                         "title",
-                        style: const TextStyle(
+                        maxLines: 2,
+                        style: TextStyle(
                             overflow: TextOverflow.ellipsis,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 3,
+                    height: 16,
                   ),
-                  const Icon(IconlyLight.heart),
-                  Icon(Icons.add_shopping_cart_outlined),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Icon(
+                        IconlyLight.heart,
+                        color: Colors.red,
+                      ),
+                      const SizedBox(
+                        width: 9,
+                      ),
+                      Flexible(
+                          child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: const Material(
+                            color: Color.fromARGB(255, 152, 154, 167),
+                            child: Padding(
+                              padding: EdgeInsets.all(1.5),
+                              child: Icon(Icons.add_shopping_cart_outlined),
+                            )),
+                      )),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "1655 \$",
+                    style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.red),
+                  )
                 ],
               ),
             )

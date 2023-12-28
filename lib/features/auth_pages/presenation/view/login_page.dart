@@ -141,13 +141,19 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 15,
                   ),
-                  const Center(
-                    child: Text(
-                      "Forgotten Password?",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17,
-                        color: Colors.teal,
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        GoRouter.of(context)
+                            .push(NamedRouteScreen.kForgetPassword);
+                      },
+                      child: const Text(
+                        "Forgot Password?",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17,
+                          color: Colors.teal,
+                        ),
                       ),
                     ),
                   ),

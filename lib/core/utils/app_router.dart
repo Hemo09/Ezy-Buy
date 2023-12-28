@@ -1,3 +1,4 @@
+import 'package:ezy_buy/features/auth_pages/presenation/view/inner_screen/forget_password.dart';
 import 'package:ezy_buy/features/auth_pages/presenation/view/login_page.dart';
 import 'package:ezy_buy/features/auth_pages/presenation/view/signup_page.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
@@ -12,17 +13,21 @@ import 'package:ezy_buy/features/search_page/presentaion/views/search_page.dart'
 import 'package:go_router/go_router.dart';
 
 class NamedRouteScreen {
-  static const kRootPage = "/";
+  //main Pages
+  static const kRootPage = "/ff";
   static const kHomeView = "/homePage";
   static const kProfilePage = "/profilePage";
   static const kSearchPage = "/searchPage";
   static const kcartPage = "/cartPage";
+  // Inner pages in Profile Page
   static const kItemDetails = "/ItemDetails";
   static const kWishList = "/kWishList";
   static const kViewedRecently = "/kViewedRecently";
+  static const kAllOrderProfile = "/kAllOrderProfile02";
+  // AuthScreen
   static const kLogin = "/LoginPage";
   static const kSignUp = "/kSignUp";
-  static const kAllOrderProfile = "/kAllOrderProfile02";
+  static const kForgetPassword = "/kForgetPassword";
 }
 
 class AppRoutes {
@@ -70,6 +75,10 @@ class AppRoutes {
     GoRoute(
       path: NamedRouteScreen.kAllOrderProfile,
       builder: (context, state) => const AllOrderProfile(),
+    ),
+    GoRoute(
+      path: "/",
+      builder: (context, state) => const ForgetPassword(),
     ),
   ]);
 }

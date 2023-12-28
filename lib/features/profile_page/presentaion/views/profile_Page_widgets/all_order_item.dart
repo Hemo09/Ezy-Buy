@@ -1,7 +1,5 @@
-import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/list_view_qty.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
 class AllOrderItem extends StatelessWidget {
   const AllOrderItem({super.key});

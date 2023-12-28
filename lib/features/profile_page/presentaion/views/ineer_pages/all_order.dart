@@ -1,4 +1,3 @@
-import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/empty_cart.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/profile_Page_widgets/all_order_item.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +40,7 @@ class AllOrderProfile extends StatelessWidget {
         body: isEmptyOrder
             ? const EmptyCartPage()
             : ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return const AllOrderItem();
                 },

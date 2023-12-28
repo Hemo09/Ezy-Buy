@@ -76,6 +76,29 @@ class ProductContent extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(
+            height: 15,
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "About this item",
+                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                "In Phone",
+                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            "Description " * 300,
+            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
+          ),
         ],
       ),
     );

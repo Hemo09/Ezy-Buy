@@ -2,9 +2,10 @@ import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/helper/widgets/default_button.dart';
 import 'package:ezy_buy/core/helper/widgets/default_text_form.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
+import 'package:ezy_buy/core/utils/widgets/app_name_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:go_router/go_router.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
@@ -32,8 +33,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              IconlyBold.arrowLeft2,
+              size: 24,
+            ),
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+          ),
+          title: const CustomAppNamedShimmer(),
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(40.0),
+        padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Form(
             key: validate,

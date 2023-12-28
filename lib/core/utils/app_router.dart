@@ -14,7 +14,7 @@ import 'package:go_router/go_router.dart';
 
 class NamedRouteScreen {
   //main Pages
-  static const kRootPage = "/ff";
+  static const kRootPage = "/";
   static const kHomeView = "/homePage";
   static const kProfilePage = "/profilePage";
   static const kSearchPage = "/searchPage";
@@ -77,7 +77,7 @@ class AppRoutes {
       builder: (context, state) => const AllOrderProfile(),
     ),
     GoRoute(
-      path: "/",
+      path: NamedRouteScreen.kForgetPassword,
       builder: (context, state) => const ForgetPassword(),
     ),
   ]);

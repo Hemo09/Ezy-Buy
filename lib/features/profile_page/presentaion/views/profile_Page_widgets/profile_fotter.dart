@@ -1,9 +1,11 @@
 import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/theme/theme_provider.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
+import 'package:ezy_buy/core/utils/app_router.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ProfileFooter extends StatelessWidget {
@@ -65,9 +67,8 @@ class ProfileFooter extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                       ),
-                      onPressed: () async {
-                        await AppFunction.showWariningAlert(
-                            context: context, press: () {}, title: "Error");
+                      onPressed: () {
+                        GoRouter.of(context).push(NamedRouteScreen.kLogin);
                       },
                       icon: const Icon(IconlyLight.login),
                       label: const Text("Login")))),

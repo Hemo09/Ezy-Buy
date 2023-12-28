@@ -21,7 +21,7 @@ class HomepageBody extends StatelessWidget {
             ),
             Text(
               "Lates Arrival",
-              style: TextStyle(fontSize: 23, fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
             ),
             LatestArrivalList(),
             Text(

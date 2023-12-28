@@ -1,3 +1,5 @@
+import 'package:ezy_buy/features/auth_pages/presenation/view/login_page.dart';
+import 'package:ezy_buy/features/auth_pages/presenation/view/signup_page.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/home_page.dart';
 import 'package:ezy_buy/features/product_details/presentaion/views/item_details.dart';
@@ -9,7 +11,7 @@ import 'package:ezy_buy/features/search_page/presentaion/views/search_page.dart'
 import 'package:go_router/go_router.dart';
 
 class NamedRouteScreen {
-  static const kRootPage = "/";
+  static const kRootPage = "/kRootPage";
   static const kHomeView = "/homePage";
   static const kProfilePage = "/profilePage";
   static const kSearchPage = "/searchPage";
@@ -17,6 +19,8 @@ class NamedRouteScreen {
   static const kItemDetails = "/ItemDetails";
   static const kWishList = "/kWishList";
   static const kViewedRecently = "/kViewedRecently";
+  static const kLogin = "/";
+  static const kSignUp = "/kSignUp";
 }
 
 class AppRoutes {
@@ -52,6 +56,14 @@ class AppRoutes {
     GoRoute(
       path: NamedRouteScreen.kViewedRecently,
       builder: (context, state) => const ViewedRecently(),
+    ),
+    GoRoute(
+      path: NamedRouteScreen.kLogin,
+      builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: NamedRouteScreen.kSignUp,
+      builder: (context, state) => const SignUp(),
     ),
   ]);
 }

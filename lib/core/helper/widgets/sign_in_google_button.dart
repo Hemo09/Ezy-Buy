@@ -11,7 +11,7 @@ class SignInGooglButton extends StatelessWidget {
       child: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 219, 217, 217),
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
@@ -24,7 +24,7 @@ class SignInGooglButton extends StatelessWidget {
           label: const Text(
             "Sign In With Google",
             style: TextStyle(
-                fontSize: 17, fontWeight: FontWeight.w700, color: Colors.black),
+                fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black),
           )),
     );
   }

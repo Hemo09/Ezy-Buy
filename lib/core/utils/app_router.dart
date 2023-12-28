@@ -3,6 +3,7 @@ import 'package:ezy_buy/features/auth_pages/presenation/view/signup_page.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/home_page.dart';
 import 'package:ezy_buy/features/product_details/presentaion/views/item_details.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/ineer_pages/all_order.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/ineer_pages/viewed_recently.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/profile_page.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/ineer_pages/wish_list.dart';
@@ -11,7 +12,7 @@ import 'package:ezy_buy/features/search_page/presentaion/views/search_page.dart'
 import 'package:go_router/go_router.dart';
 
 class NamedRouteScreen {
-  static const kRootPage = "/kRootPage";
+  static const kRootPage = "/";
   static const kHomeView = "/homePage";
   static const kProfilePage = "/profilePage";
   static const kSearchPage = "/searchPage";
@@ -19,8 +20,9 @@ class NamedRouteScreen {
   static const kItemDetails = "/ItemDetails";
   static const kWishList = "/kWishList";
   static const kViewedRecently = "/kViewedRecently";
-  static const kLogin = "/";
+  static const kLogin = "/LoginPage";
   static const kSignUp = "/kSignUp";
+  static const kAllOrderProfile = "/kAllOrderProfile02";
 }
 
 class AppRoutes {
@@ -64,6 +66,10 @@ class AppRoutes {
     GoRoute(
       path: NamedRouteScreen.kSignUp,
       builder: (context, state) => const SignUp(),
+    ),
+    GoRoute(
+      path: NamedRouteScreen.kAllOrderProfile,
+      builder: (context, state) => const AllOrderProfile(),
     ),
   ]);
 }

@@ -27,7 +27,9 @@ class ProfileContent extends StatelessWidget {
           CustomListTile(
             pathImage: AppImages.orderSvg,
             text: "All orders",
-            press: () {},
+            press: () {
+              GoRouter.of(context).push(NamedRouteScreen.kAllOrderProfile);
+            },
           ),
           CustomListTile(
             pathImage: AppImages.wishlistSvg,

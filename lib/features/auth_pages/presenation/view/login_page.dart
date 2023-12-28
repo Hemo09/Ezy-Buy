@@ -1,6 +1,7 @@
 import 'package:ezy_buy/core/helper/widgets/default_button.dart';
 import 'package:ezy_buy/core/helper/widgets/default_text_form.dart';
 import 'package:ezy_buy/core/helper/widgets/sign_in_google_button.dart';
+import 'package:ezy_buy/core/utils/widgets/app_name_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/utils/app_router.dart';
@@ -13,11 +14,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  late TextEditingController emailController;
+  late TextEditingController passController;
   var validate = GlobalKey<FormState>();
   bool secure = false;
   bool isLoading = false;
+
+  @override
+  void initState() {
+    emailController = TextEditingController();
+    passController = TextEditingController();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +49,10 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Center(child: CustomAppNamedShimmer()),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   const Text(
                     "Hi There! 👋",
                     style: TextStyle(
@@ -113,7 +133,11 @@ class _LoginPageState extends State<LoginPage> {
                   Center(
                       child: isLoading
                           ? const CircularProgressIndicator()
-                          : DefaultButton(text: "Login", press: () {})),
+                          : DefaultButton(
+                              text: "Login",
+                              press: () {
+                                validate.currentState!.validate();
+                              })),
                   const SizedBox(
                     height: 15,
                   ),
@@ -182,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: FittedBox(
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(8),
                                     backgroundColor: const Color.fromARGB(
                                         255, 219, 217, 217),
                                     shape: RoundedRectangleBorder(
@@ -193,8 +217,8 @@ class _LoginPageState extends State<LoginPage> {
                                   child: const Text(
                                     "Guest?",
                                     style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w700,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
                                         color: Colors.black),
                                   )),
                             ),

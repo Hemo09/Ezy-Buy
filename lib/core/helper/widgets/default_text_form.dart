@@ -41,13 +41,6 @@ class DefaultTextForm extends StatelessWidget {
         keyboardType: type,
         obscureText: secure!,
         decoration: InputDecoration(
-          errorStyle: const TextStyle(
-            color: Colors.white,
-          ),
-          errorBorder: const OutlineInputBorder(
-              borderSide: BorderSide(
-            color: Colors.white,
-          )),
           suffixIcon: IconButton(
               onPressed: pressIcon,
               icon: Icon(

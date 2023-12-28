@@ -1,8 +1,12 @@
+import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/helper/widgets/default_button.dart';
 import 'package:ezy_buy/core/helper/widgets/default_text_form.dart';
+import 'package:ezy_buy/core/helper/widgets/picked_image.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
+import 'package:ezy_buy/core/utils/widgets/app_name_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -12,20 +16,42 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  var emailController = TextEditingController();
+  XFile? _pickedImage;
+  late TextEditingController emailController;
+  late TextEditingController nameController;
+
   bool secure = false;
   bool vSecure = false;
 
-  var passController = TextEditingController();
+  late TextEditingController passController;
 
-  var verifyPassController = TextEditingController();
+  late TextEditingController verifyPassController;
 
-  var validate = GlobalKey<FormState>();
+  var isValid = GlobalKey<FormState>();
 
   bool isLoading = false;
+  @override
+  void initState() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passController = TextEditingController();
+    verifyPassController = TextEditingController();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passController.dispose();
+    verifyPassController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -34,10 +60,14 @@ class _SignUpState extends State<SignUp> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Form(
-              key: validate,
+              key: isValid,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Center(child: CustomAppNamedShimmer()),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   const Text(
                     "Create",
                     style: TextStyle(
@@ -53,8 +83,46 @@ class _SignUpState extends State<SignUp> {
                       fontSize: 19,
                     ),
                   ),
+                  Center(
+                    child: SizedBox(
+                      width: size.width * .3,
+                      height: size.height * .15,
+                      child: PickedImage(
+                        image: _pickedImage,
+                        pickImage: () async {
+                          await AppFunction.pickedImage(
+                              context: context,
+                              cameraFunction: () {},
+                              galleryFunction: () {},
+                              removeFunction: () {});
+                        },
+                      ),
+                    ),
+                  ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
+                  ),
+                  const Text(
+                    "Name",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  DefaultTextForm(
+                    hint: "Enter your name",
+                    type: TextInputType.emailAddress,
+                    secure: false,
+                    validate: (value) {
+                      return AppFunction.validatorNameField(value: value);
+                    },
+                    controller: nameController,
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                   const Text(
                     "Email",
@@ -71,10 +139,7 @@ class _SignUpState extends State<SignUp> {
                     type: TextInputType.emailAddress,
                     secure: false,
                     validate: (value) {
-                      if (value!.isEmpty) {
-                        return "Email must not be empty";
-                      }
-                      return null;
+                      return AppFunction.validatorEmailField(value: value);
                     },
                     controller: emailController,
                   ),
@@ -104,10 +169,7 @@ class _SignUpState extends State<SignUp> {
                       });
                     },
                     validate: (value) {
-                      if (value!.isEmpty) {
-                        return "password must not be empty";
-                      }
-                      return null;
+                      return AppFunction.validatorPasswordField(value: value);
                     },
                     controller: passController,
                   ),
@@ -137,10 +199,8 @@ class _SignUpState extends State<SignUp> {
                       });
                     },
                     validate: (value) {
-                      if (passController.text != verifyPassController.text) {
-                        return "password doesn't match";
-                      }
-                      return null;
+                      return AppFunction.validatorRepeatPasswordField(
+                          value: value, password: passController.text);
                     },
                     controller: verifyPassController,
                   ),
@@ -150,7 +210,12 @@ class _SignUpState extends State<SignUp> {
                   Center(
                       child: isLoading
                           ? const CircularProgressIndicator()
-                          : DefaultButton(text: "Sign up", press: () {})),
+                          : DefaultButton(
+                              text: "Sign up",
+                              press: () {
+                                isValid.currentState!.validate();
+                                setState(() {});
+                              })),
                   const SizedBox(
                     height: 15,
                   ),

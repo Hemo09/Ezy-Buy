@@ -1,4 +1,4 @@
-import 'package:ezy_buy/features/profile_page/presentaion/views/profile_Page_widgets/profile_fotter.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/views/ineer_page_widget/profile_fotter.dart';
 
 import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/profile_content.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/user_email_photo_profile.dart';

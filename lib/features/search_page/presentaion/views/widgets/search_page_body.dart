@@ -3,20 +3,24 @@ import 'package:ezy_buy/features/search_page/presentaion/views/widgets/text_fiel
 import 'package:flutter/material.dart';
 
 class SearchPageBody extends StatelessWidget {
-  const SearchPageBody({super.key});
+  const SearchPageBody({super.key, this.category});
+  final String? category;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        TextFieldSearch(),
-        SizedBox(
+        const TextFieldSearch(),
+        const SizedBox(
           height: 20,
         ),
-        Expanded(child: GridViewSearchItems()),
+        Expanded(
+            child: GridViewSearchItems(
+          category: category!,
+        )),
       ],
     );
   }

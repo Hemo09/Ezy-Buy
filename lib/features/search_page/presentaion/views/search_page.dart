@@ -3,7 +3,8 @@ import 'package:ezy_buy/features/search_page/presentaion/views/widgets/search_pa
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+  const SearchPage({super.key, this.category});
+  final String? category;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class SearchPage extends StatelessWidget {
           ),
         ),
       ),
-      body: const SearchPageBody(),
+      body: SearchPageBody(category: category),
     );
   }
 }

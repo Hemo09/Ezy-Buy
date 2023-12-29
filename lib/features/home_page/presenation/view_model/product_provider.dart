@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ezy_buy/features/home_page/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -12,6 +14,15 @@ class ProductProvider with ChangeNotifier {
       return null;
     }
     return _product.firstWhere((element) => element.productId == productId);
+  }
+
+  List<ProductModel> findByCategory(String category) {
+    List<ProductModel> cagList = _product
+        .where((element) => element.productCategory
+            .toLowerCase()
+            .contains(category.toLowerCase()))
+        .toList();
+    return cagList;
   }
 
   final List<ProductModel> _product = [

@@ -46,7 +46,9 @@ class AppRoutes {
     ),
     GoRoute(
       path: NamedRouteScreen.kSearchPage,
-      builder: (context, state) => const SearchPage(),
+      builder: (context, state) => SearchPage(
+        category: state.extra as String,
+      ),
     ),
     GoRoute(
       path: NamedRouteScreen.kcartPage,

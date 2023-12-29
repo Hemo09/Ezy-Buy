@@ -1,11 +1,15 @@
 import 'package:ezy_buy/core/helper/favourite_icon.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
+import 'package:ezy_buy/features/home_page/data/models/product_model.dart';
+import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class LatestArrival extends StatelessWidget {
-  const LatestArrival({super.key});
+  const LatestArrival({super.key, required this.model});
+  final ProductModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +29,7 @@ class LatestArrival extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: FancyShimmerImage(
-                  imageUrl:
-                      "https://i.ibb.co/8r1Ny2n/20-Nike-Air-Force-1-07.png",
+                  imageUrl: model.productImage,
                   width: size.width * 0.28,
                   height: size.width * 0.28,
                 ),
@@ -41,10 +44,10 @@ class LatestArrival extends StatelessWidget {
                     Flexible(
                       child: SizedBox(
                         width: size.width * .9,
-                        child: const Text(
-                          "title",
+                        child: Text(
+                          model.productTitle,
                           maxLines: 2,
-                          style: TextStyle(
+                          style: const TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize: 20,
                               fontWeight: FontWeight.w800),
@@ -76,9 +79,9 @@ class LatestArrival extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      "1655 \$",
-                      style: TextStyle(
+                    Text(
+                      "${model.productPrice} \$",
+                      style: const TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.w700,
                           color: Colors.red),

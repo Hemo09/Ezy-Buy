@@ -20,7 +20,9 @@ class AppConstants {
   ];
   static List<CategoryModel> categoriesNamed = [
     CategoryModel(
-        id: AppImages.cosmetics, image: AppImages.cosmetics, name: "cosmetics"),
+        id: AppImages.cosmetics,
+        image: AppImages.cosmetics,
+        name: "Accessories"),
     CategoryModel(id: AppImages.book, image: AppImages.book, name: "book"),
     CategoryModel(
         id: AppImages.electronics,
@@ -29,9 +31,9 @@ class AppConstants {
     CategoryModel(
         id: AppImages.fashion, image: AppImages.fashion, name: "fashion"),
     CategoryModel(
-        id: AppImages.mobiles, image: AppImages.mobiles, name: "mobiles"),
-    CategoryModel(id: AppImages.pc, image: AppImages.pc, name: "pc"),
-    CategoryModel(id: AppImages.shoes, image: AppImages.shoes, name: "shoes"),
-    CategoryModel(id: AppImages.watch, image: AppImages.watch, name: "watch"),
+        id: AppImages.mobiles, image: AppImages.mobiles, name: "phones"),
+    CategoryModel(id: AppImages.pc, image: AppImages.pc, name: "Laptops"),
+    CategoryModel(id: AppImages.shoes, image: AppImages.shoes, name: "Shoes"),
+    CategoryModel(id: AppImages.watch, image: AppImages.watch, name: "Watches"),
   ];
 }

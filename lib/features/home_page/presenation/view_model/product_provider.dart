@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:ezy_buy/features/home_page/data/models/product_model.dart';
 import 'package:flutter/material.dart';

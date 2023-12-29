@@ -21,9 +21,10 @@ class LatestArrivalList extends StatelessWidget {
         itemBuilder: (context, index) {
           return LatestArrival(
             model: products[index],
+            productId: products[index].productId,
           );
         },
-        itemCount: products.length,
+        itemCount: 13,
       ),
     );
   }

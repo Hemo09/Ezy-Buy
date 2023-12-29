@@ -1,8 +1,6 @@
 import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/features/home_page/data/models/cateogy_model.dart';
-import 'package:ezy_buy/features/home_page/data/models/product_model.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 class AppColor {
   static const Color lightScaffoldColor = Colors.white;

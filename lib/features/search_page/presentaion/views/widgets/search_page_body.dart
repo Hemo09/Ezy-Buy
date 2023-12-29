@@ -19,7 +19,7 @@ class SearchPageBody extends StatelessWidget {
         ),
         Expanded(
             child: GridViewSearchItems(
-          category: category!,
+          category: category,
         )),
       ],
     );

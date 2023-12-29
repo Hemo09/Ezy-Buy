@@ -1,8 +1,6 @@
-import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:ezy_buy/features/product_details/presentaion/views/widgets/product_content.dart';
 import 'package:ezy_buy/features/product_details/presentaion/views/widgets/product_image.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ItemDetailsBody extends StatelessWidget {
   const ItemDetailsBody({super.key, required this.productId});

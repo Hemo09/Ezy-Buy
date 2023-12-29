@@ -42,7 +42,10 @@ class WishList extends StatelessWidget {
             child: DynamicHeightGridView(
                 physics: const BouncingScrollPhysics(),
                 builder: (context, index) {
-                  return const Center(child: GridViewItem());
+                  return const Center(
+                      child: GridViewItem(
+                    productId: "",
+                  ));
                 },
                 itemCount: 15,
                 crossAxisCount: 2),

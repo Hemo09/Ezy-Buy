@@ -1,6 +1,7 @@
 import 'package:ezy_buy/core/theme/theme_data.dart';
 import 'package:ezy_buy/core/theme/theme_provider.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
+import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:ezy_buy/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) {
           return ThemeProvider();
+        }),
+        ChangeNotifierProvider(create: (context) {
+          return ProductProvider();
         }),
       ],
       child: Consumer<ThemeProvider>(

@@ -27,7 +27,8 @@ class GridViewItem extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    GoRouter.of(context).push(NamedRouteScreen.kItemDetails);
+                    GoRouter.of(context).push(NamedRouteScreen.kItemDetails,
+                        extra: getFindById.productId);
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(19.0),

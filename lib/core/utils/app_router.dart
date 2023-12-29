@@ -54,7 +54,9 @@ class AppRoutes {
     ),
     GoRoute(
       path: NamedRouteScreen.kItemDetails,
-      builder: (context, state) => const ItemDetails(),
+      builder: (context, state) => ItemDetails(
+        productId: state.extra as String,
+      ),
     ),
     GoRoute(
       path: NamedRouteScreen.kWishList,

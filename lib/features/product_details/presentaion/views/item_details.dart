@@ -5,7 +5,8 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:go_router/go_router.dart';
 
 class ItemDetails extends StatelessWidget {
-  const ItemDetails({super.key});
+  const ItemDetails({super.key, required this.productId});
+  final String productId;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ItemDetails extends StatelessWidget {
             ),
             title: const CustomAppNamedShimmer(),
           )),
-      body: const ItemDetailsBody(),
+      body: ItemDetailsBody(productId: productId),
     );
   }
 }

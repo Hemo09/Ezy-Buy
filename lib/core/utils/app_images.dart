@@ -7,6 +7,8 @@ class AppImages {
 
 // general images
   static String forgotPassword = "$imagesPath/forgot_password.jpg";
+  static String noImage = "$imagesPath/images.png";
+
   static String mapRounded = "$imagesPath/rounded_map.png";
   static String warning = "$imagesPath/warning.png";
   static String error = "$imagesPath/error.png";

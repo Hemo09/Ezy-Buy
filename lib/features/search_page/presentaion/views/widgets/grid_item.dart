@@ -1,11 +1,14 @@
+import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
+import 'package:ezy_buy/features/home_page/data/models/product_model.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:go_router/go_router.dart';
 
 class GridViewItem extends StatelessWidget {
-  const GridViewItem({super.key});
+  const GridViewItem({super.key, this.model});
+  final ProductModel? model;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +24,10 @@ class GridViewItem extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(19.0),
               child: FancyShimmerImage(
-                imageUrl: "https://i.ibb.co/8r1Ny2n/20-Nike-Air-Force-1-07.png",
+                imageUrl: model!.productImage,
                 height: size.height * .2,
                 width: double.infinity,
+                errorWidget: Image.asset(AppImages.noImage),
               ),
             ),
           ),
@@ -34,7 +38,7 @@ class GridViewItem extends StatelessWidget {
                 child: SizedBox(
                   width: size.width * .9,
                   child: Text(
-                    "title" * 5,
+                    model!.productTitle,
                     style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 18,
@@ -54,9 +58,9 @@ class GridViewItem extends StatelessWidget {
               Flexible(
                 child: SizedBox(
                   width: size.width * .2,
-                  child: const Text(
-                    "16.5\$",
-                    style: TextStyle(
+                  child: Text(
+                    "${model!.productPrice}\$",
+                    style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 19,
                         fontWeight: FontWeight.w700,

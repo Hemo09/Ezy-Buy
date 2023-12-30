@@ -19,4 +19,12 @@ class CartProvider with ChangeNotifier {
             CartModel(productId: productId, qty: 1, cartId: const Uuid().v4()));
     notifyListeners();
   }
+
+  void updateQuantity({required String productId, required int quantity}) {
+    _cartItems.update(
+        productId,
+        (product) => CartModel(
+            productId: productId, qty: quantity, cartId: product.cartId));
+    notifyListeners();
+  }
 }

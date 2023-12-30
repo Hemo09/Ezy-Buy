@@ -1,4 +1,6 @@
-class CartModel {
+import 'package:flutter/material.dart';
+
+class CartModel with ChangeNotifier {
   String? productId;
   int? qty;
   String? cartId;

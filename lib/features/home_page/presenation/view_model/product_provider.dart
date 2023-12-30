@@ -1,4 +1,3 @@
-
 import 'package:ezy_buy/features/home_page/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -22,6 +21,16 @@ class ProductProvider with ChangeNotifier {
             .contains(category.toLowerCase()))
         .toList();
     return cagList;
+  }
+
+  List<ProductModel> searchQuery(
+      {required String searchValue, required List<ProductModel> ctgList}) {
+    List<ProductModel> searchList = ctgList
+        .where((element) => element.productTitle
+            .toLowerCase()
+            .contains(searchValue.toLowerCase()))
+        .toList();
+    return searchList;
   }
 
   final List<ProductModel> _product = [

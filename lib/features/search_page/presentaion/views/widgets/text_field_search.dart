@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 class TextFieldSearch extends StatefulWidget {
-  const TextFieldSearch({super.key});
+  const TextFieldSearch({
+    super.key,
+  });
 
   @override
   State<TextFieldSearch> createState() => _TextFieldSearchState();

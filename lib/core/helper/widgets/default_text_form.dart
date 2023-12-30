@@ -7,7 +7,7 @@ class DefaultTextForm extends StatelessWidget {
       this.color,
       this.pressIcon,
       this.controller,
-      this.tap,
+      this.change,
       this.submit,
       this.prefix,
       this.validate,
@@ -15,7 +15,7 @@ class DefaultTextForm extends StatelessWidget {
       this.secure = false,
       required this.hint});
   final TextEditingController? controller;
-  final void Function()? tap;
+  final void Function(String value)? change;
   final void Function(String?)? submit;
   final String? Function(String?)? validate;
   final TextInputType type;
@@ -41,6 +41,7 @@ class DefaultTextForm extends StatelessWidget {
         controller: controller,
         onFieldSubmitted: submit,
         validator: validate,
+        onChanged: change,
         keyboardType: type,
         obscureText: secure!,
         decoration: InputDecoration(

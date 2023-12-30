@@ -26,7 +26,7 @@ class LatestArrival extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 GoRouter.of(context).push(NamedRouteScreen.kItemDetails,
-                    extra: getFindById!.productId);
+                    extra: getFindById.productId);
               },
               child: SizedBox(
                 width: size.width * .53,

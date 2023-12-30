@@ -1,27 +1,104 @@
-import 'package:ezy_buy/features/search_page/presentaion/views/widgets/grid_view_search_items.dart';
-import 'package:ezy_buy/features/search_page/presentaion/views/widgets/text_field_search.dart';
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ezy_buy/core/helper/widgets/default_text_form.dart';
+import 'package:ezy_buy/features/search_page/presentaion/views/widgets/grid_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SearchPageBody extends StatelessWidget {
-  const SearchPageBody({super.key, this.category});
+import '../../../../home_page/data/models/product_model.dart';
+import '../../../../home_page/presenation/view_model/product_provider.dart';
+
+class SearchPageBody extends StatefulWidget {
+  const SearchPageBody({
+    super.key,
+    this.category,
+  });
   final String? category;
 
   @override
+  State<SearchPageBody> createState() => _SearchPageBodyState();
+}
+
+class _SearchPageBodyState extends State<SearchPageBody> {
+  late TextEditingController searchController;
+  @override
+  void initState() {
+    searchController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  List<ProductModel> searchList = [];
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        const TextFieldSearch(),
-        const SizedBox(
-          height: 20,
-        ),
-        Expanded(
-            child: GridViewSearchItems(
-          category: category,
-        )),
-      ],
+    final productProvider = Provider.of<ProductProvider>(context);
+    final List<ProductModel> productsCategory = widget.category == null
+        ? productProvider.getProduct
+        : productProvider.findByCategory(widget.category!);
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          DefaultTextForm(
+            type: TextInputType.text,
+            hint: "search",
+            controller: searchController,
+            submit: (value) {
+              setState(() {
+                searchList = productProvider.searchQuery(
+                    ctgList: productsCategory,
+                    searchValue: searchController.text);
+              });
+            },
+            change: (value) {
+              setState(() {
+                searchList = productProvider.searchQuery(
+                    ctgList: productsCategory,
+                    searchValue: searchController.text);
+              });
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          if (searchController.text.isNotEmpty && searchList.isEmpty) ...[
+            const Center(
+              child: Text(
+                "No Resutl Found",
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+            ),
+          ],
+          Expanded(
+            child: DynamicHeightGridView(
+              physics: const BouncingScrollPhysics(),
+              builder: (context, index) {
+                return Center(
+                  child: GridViewItem(
+                      productId: searchController.text.isNotEmpty
+                          ? searchList[index].productId
+                          : productsCategory[index].productId),
+                );
+              },
+              itemCount: searchController.text.isNotEmpty
+                  ? searchList.length
+                  : productsCategory.length,
+              crossAxisCount: 2,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

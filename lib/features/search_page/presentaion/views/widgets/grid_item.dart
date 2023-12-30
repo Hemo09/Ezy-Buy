@@ -3,6 +3,7 @@ import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/view_model/viewed_recently_provider/viewed_recently_provider.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,7 +20,7 @@ class GridViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
-
+    final viewedRecntly = Provider.of<ViewedRecentlyProvider>(context);
     final getFindById = productProvider.findById(productId);
     Size size = MediaQuery.of(context).size;
     return getFindById == null
@@ -29,8 +30,10 @@ class GridViewItem extends StatelessWidget {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {
-                    GoRouter.of(context).push(NamedRouteScreen.kItemDetails,
+                  onTap: () async {
+                    viewedRecntly.addOrRemove(productId: getFindById.productId);
+                    await GoRouter.of(context).push(
+                        NamedRouteScreen.kItemDetails,
                         extra: getFindById.productId);
                   },
                   child: ClipRRect(

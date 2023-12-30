@@ -1,4 +1,3 @@
-import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/view_model/wish_list_provider/wish_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';

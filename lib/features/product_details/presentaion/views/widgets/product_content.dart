@@ -2,7 +2,6 @@ import 'package:ezy_buy/core/helper/favourite_icon.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
 class ProductContent extends StatelessWidget {

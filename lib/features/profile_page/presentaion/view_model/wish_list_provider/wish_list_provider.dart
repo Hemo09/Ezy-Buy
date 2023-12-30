@@ -1,6 +1,3 @@
-import 'package:ezy_buy/features/cart_page/data/models/cart_model.dart';
-import 'package:ezy_buy/features/home_page/data/models/product_model.dart';
-import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:ezy_buy/features/profile_page/data/models/wish_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';

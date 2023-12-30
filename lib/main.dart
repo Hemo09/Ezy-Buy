@@ -3,6 +3,7 @@ import 'package:ezy_buy/core/theme/theme_provider.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/view_model/viewed_recently_provider/viewed_recently_provider.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/view_model/wish_list_provider/wish_list_provider.dart';
 import 'package:ezy_buy/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         }),
         ChangeNotifierProvider(create: (context) {
           return WishListProvider();
+        }),
+        ChangeNotifierProvider(create: (context) {
+          return ViewedRecentlyProvider();
         }),
       ],
       child: Consumer<ThemeProvider>(

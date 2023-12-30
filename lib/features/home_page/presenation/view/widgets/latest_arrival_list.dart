@@ -19,9 +19,12 @@ class LatestArrivalList extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return LatestArrival(
-            model: products[index],
-            productId: products[index].productId,
+          return ChangeNotifierProvider.value(
+            value: productProvider.getProduct[index],
+            child: LatestArrival(
+              model: products[index],
+              productId: products[index].productId,
+            ),
           );
         },
         itemCount: 13,

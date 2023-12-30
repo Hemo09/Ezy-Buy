@@ -10,10 +10,9 @@ class EmptyCartPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          EmptyCart(
+          CustomNoData(
             body:
                 "Looks like you didn't add anything yet to your cart \n go ahead and start shopping now",
-            buttonText: "shop Now",
             pathImage: AppImages.shoppingBasket,
             subtitle: "Your cart is Empty",
             title: "Whoops!!",

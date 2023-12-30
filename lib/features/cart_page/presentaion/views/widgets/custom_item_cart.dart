@@ -1,3 +1,4 @@
+import 'package:ezy_buy/core/helper/favourite_icon.dart';
 import 'package:ezy_buy/features/cart_page/data/models/cart_model.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/list_view_qty.dart';
@@ -65,12 +66,7 @@ class CustomItemCart extends StatelessWidget {
                                     Icons.clear,
                                     color: Colors.red,
                                   )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    IconlyLight.heart,
-                                    color: Colors.red,
-                                  )),
+                              FavouriteIcon(productId: getFindById.productId),
                             ],
                           ),
                         ],

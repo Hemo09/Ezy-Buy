@@ -1,14 +1,18 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/view_model/wish_list_provider/wish_list_provider.dart';
 import 'package:ezy_buy/features/search_page/presentaion/views/widgets/grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class WishList extends StatelessWidget {
   const WishList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final wishListProvider = Provider.of<WishListProvider>(context);
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
@@ -22,9 +26,9 @@ class WishList extends StatelessWidget {
                 GoRouter.of(context).pop();
               },
             ),
-            title: const Text(
-              "Wish List (1)",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+            title: Text(
+              "Wish List (${wishListProvider.getWishListItem.length})",
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
             ),
             actions: [
               IconButton(
@@ -32,7 +36,15 @@ class WishList extends StatelessWidget {
                   IconlyBold.delete,
                   color: Colors.red,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  AppFunction.showWariningAlert(
+                      context: context,
+                      title: "Remove Items",
+                      press: () {
+                        wishListProvider.clearCart();
+                        GoRouter.of(context).pop();
+                      });
+                },
               ),
             ],
           )),
@@ -42,12 +54,14 @@ class WishList extends StatelessWidget {
             child: DynamicHeightGridView(
                 physics: const BouncingScrollPhysics(),
                 builder: (context, index) {
-                  return const Center(
+                  return Center(
                       child: GridViewItem(
-                    productId: "",
+                    productId: wishListProvider.getWishListItem.values
+                        .toList()[index]
+                        .productId!,
                   ));
                 },
-                itemCount: 15,
+                itemCount: wishListProvider.getWishListItem.length,
                 crossAxisCount: 2),
           ),
         ],

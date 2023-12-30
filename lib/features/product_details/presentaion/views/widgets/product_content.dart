@@ -1,3 +1,4 @@
+import 'package:ezy_buy/core/helper/favourite_icon.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -48,14 +49,9 @@ class ProductContent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Material(
-                color: Colors.lightGreen,
-                elevation: 0.0,
-                shape: CircleBorder(),
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(IconlyLight.heart),
-                ),
+              FavouriteIcon(
+                productId: getFindById.productId,
+                size: 28,
               ),
               const SizedBox(
                 width: 6,

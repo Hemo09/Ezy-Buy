@@ -1,10 +1,10 @@
+import 'package:ezy_buy/core/helper/favourite_icon.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +58,7 @@ class GridViewItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Icon(IconlyLight.heart),
+                    FavouriteIcon(productId: getFindById.productId)
                   ],
                 ),
                 const SizedBox(

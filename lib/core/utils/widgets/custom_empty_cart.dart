@@ -1,14 +1,16 @@
+import 'package:ezy_buy/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class EmptyCart extends StatelessWidget {
-  const EmptyCart(
-      {super.key,
-      required this.pathImage,
-      required this.title,
-      required this.subtitle,
-      required this.body,
-      required this.buttonText});
-  final String pathImage, title, subtitle, body, buttonText;
+class CustomNoData extends StatelessWidget {
+  const CustomNoData({
+    super.key,
+    required this.pathImage,
+    required this.title,
+    required this.subtitle,
+    required this.body,
+  });
+  final String pathImage, title, subtitle, body;
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +61,16 @@ class EmptyCart extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(15.0),
                       elevation: 0.0,
                     ),
-                    onPressed: () {},
-                    child: Text(
-                      buttonText,
-                      style: const TextStyle(
-                          fontSize: 21, fontWeight: FontWeight.w600),
+                    onPressed: () {
+                      GoRouter.of(context).push(NamedRouteScreen.kRootPage);
+                    },
+                    child: const Text(
+                      "Shop Now",
+                      style:
+                          TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
                     )),
               ),
             ],

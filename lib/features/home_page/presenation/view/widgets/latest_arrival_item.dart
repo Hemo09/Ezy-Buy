@@ -68,7 +68,7 @@ class LatestArrival extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const FavouriteIcon(),
+                              FavouriteIcon(productId: getFindById.productId),
                               const SizedBox(
                                 width: 9,
                               ),

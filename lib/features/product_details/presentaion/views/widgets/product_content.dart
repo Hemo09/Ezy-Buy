@@ -1,3 +1,4 @@
+import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -11,6 +12,7 @@ class ProductContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
     final getFindById = productProvider.findById(productId);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -63,20 +65,42 @@ class ProductContent extends StatelessWidget {
                   height: kBottomNavigationBarHeight - 10,
                   child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.white38,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           )),
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.add_shopping_cart_outlined,
+                      onPressed: () {
+                        if (cartProvider.isProductInCart(
+                            producId: getFindById.productId)) {
+                          return;
+                        }
+                        cartProvider.addCartItem(
+                            productId: getFindById.productId);
+                      },
+                      icon: Icon(
+                        cartProvider.isProductInCart(
+                                producId: getFindById.productId)
+                            ? Icons.check
+                            : Icons.add_shopping_cart_outlined,
+                        color: Colors.green,
                         size: 27,
                       ),
-                      label: const Text(
-                        "add to cart",
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.w700),
-                      )),
+                      label: cartProvider.isProductInCart(
+                              producId: getFindById.productId)
+                          ? const Text(
+                              "In Cart",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w700),
+                            )
+                          : const Text(
+                              "add to cart",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w700),
+                            )),
                 ),
               ),
             ],

@@ -1,4 +1,3 @@
-import 'package:ezy_buy/features/cart_page/data/models/cart_model.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/custom_item_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

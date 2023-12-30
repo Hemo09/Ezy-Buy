@@ -1,7 +1,6 @@
 import 'package:ezy_buy/features/auth_pages/presenation/view/inner_screen/forget_password.dart';
 import 'package:ezy_buy/features/auth_pages/presenation/view/login_page.dart';
 import 'package:ezy_buy/features/auth_pages/presenation/view/signup_page.dart';
-import 'package:ezy_buy/features/cart_page/data/models/cart_model.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/home_page.dart';
 import 'package:ezy_buy/features/product_details/presentaion/views/item_details.dart';
@@ -53,9 +52,7 @@ class AppRoutes {
     ),
     GoRoute(
       path: NamedRouteScreen.kcartPage,
-      builder: (context, state) => CartPage(
-        cartModel: state.extra as CartModel,
-      ),
+      builder: (context, state) => const CartPage(),
     ),
     GoRoute(
       path: NamedRouteScreen.kItemDetails,

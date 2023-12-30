@@ -1,6 +1,7 @@
 import 'package:ezy_buy/features/cart_page/data/models/cart_model.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class CustomListView extends StatelessWidget {
@@ -25,6 +26,7 @@ class CustomListView extends StatelessWidget {
                 onTap: () {
                   cartProvider.updateQuantity(
                       productId: cartModel.productId!, quantity: index);
+                  GoRouter.of(context).pop();
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

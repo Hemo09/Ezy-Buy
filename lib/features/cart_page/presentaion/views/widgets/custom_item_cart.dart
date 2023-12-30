@@ -1,4 +1,5 @@
 import 'package:ezy_buy/features/cart_page/data/models/cart_model.dart';
+import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/widgets/list_view_qty.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -17,6 +18,7 @@ class CustomItemCart extends StatelessWidget {
     final cartModelProvider = Provider.of<CartModel>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     final getFindById = productProvider.findById(cartModelProvider.productId!);
+    final cartProvider = Provider.of<CartProvider>(context);
     Size size = MediaQuery.of(context).size;
     return getFindById == null
         ? const SizedBox.shrink()
@@ -55,7 +57,10 @@ class CustomItemCart extends StatelessWidget {
                           Column(
                             children: [
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    cartProvider.removeOneProduct(
+                                        productId: getFindById.productId);
+                                  },
                                   icon: const Icon(
                                     Icons.clear,
                                     color: Colors.red,

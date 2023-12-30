@@ -1,5 +1,6 @@
 import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
+import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,8 @@ class GridViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+
     final getFindById = productProvider.findById(productId);
     Size size = MediaQuery.of(context).size;
     return getFindById == null
@@ -80,11 +83,25 @@ class GridViewItem extends StatelessWidget {
                     Flexible(
                         child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: const Material(
-                          color: Color.fromARGB(255, 152, 154, 167),
+                      child: Material(
+                          color: Colors.white,
                           child: Padding(
-                            padding: EdgeInsets.all(3.0),
-                            child: Icon(Icons.add_shopping_cart_outlined),
+                            padding: const EdgeInsets.all(3.0),
+                            child: IconButton(
+                              onPressed: () {
+                                if (cartProvider.isProductInCart(
+                                    producId: getFindById.productId)) {
+                                  return;
+                                }
+                                cartProvider.addCartItem(
+                                    productId: getFindById.productId);
+                              },
+                              icon: Icon(cartProvider.isProductInCart(
+                                      producId: getFindById.productId)
+                                  ? Icons.check
+                                  : Icons.add_shopping_cart_outlined),
+                              color: Colors.green,
+                            ),
                           )),
                     )),
                   ],

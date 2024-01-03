@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/home_page.dart';
@@ -6,6 +8,8 @@ import 'package:ezy_buy/features/search_page/presentaion/views/search_page.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
+
+import '../home_page/presenation/view_model/product_provider.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -16,6 +20,8 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   late PageController pagecontroller;
+  bool isLoadingProds = true;
+
   int currentPage = 0;
   List<Widget> pages = const [
     HomePage(),
@@ -27,6 +33,35 @@ class _RootPageState extends State<RootPage> {
   void initState() {
     pagecontroller = PageController(initialPage: currentPage);
     super.initState();
+  }
+
+  Future<void> fetchData() async {
+    final productsProvider =
+        Provider.of<ProductProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    try {
+      Future.wait({
+        productsProvider.fetchProducts(),
+      });
+      Future.wait({
+        cartProvider.fetchCart(),
+      });
+    } catch (error) {
+      log(error.toString());
+    } finally {
+      setState(() {
+        isLoadingProds = false;
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (isLoadingProds) {
+      fetchData();
+    }
+
+    super.didChangeDependencies();
   }
 
   @override

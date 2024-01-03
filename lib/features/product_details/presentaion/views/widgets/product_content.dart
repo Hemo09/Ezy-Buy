@@ -4,6 +4,8 @@ import 'package:ezy_buy/features/home_page/presenation/view_model/product_provid
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/helper/function/app_fucntion.dart';
+
 class ProductContent extends StatelessWidget {
   const ProductContent({super.key, required this.productId});
   final String productId;
@@ -64,13 +66,28 @@ class ProductContent extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           )),
-                      onPressed: () {
+                      onPressed: () async {
+                        // if (cartProvider.isProductInCart(
+                        //     producId: getFindById.productId)) {
+                        //   return;
+                        // }
+                        // cartProvider.addCartItem(
+                        //     productId: getFindById.productId);
                         if (cartProvider.isProductInCart(
                             producId: getFindById.productId)) {
                           return;
                         }
-                        cartProvider.addCartItem(
-                            productId: getFindById.productId);
+                        try {
+                          await cartProvider.addToCartFirebase(
+                              productId: getFindById.productId,
+                              qty: 1,
+                              context: context);
+                        } catch (error) {
+                          AppFunction.showWariningAlert(
+                              context: context,
+                              title: error.toString(),
+                              press: () {});
+                        }
                       },
                       icon: Icon(
                         cartProvider.isProductInCart(

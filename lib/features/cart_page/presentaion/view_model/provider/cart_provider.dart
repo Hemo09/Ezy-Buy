@@ -1,7 +1,14 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
+import 'package:ezy_buy/core/utils/constants.dart';
 import 'package:ezy_buy/features/cart_page/data/models/cart_model.dart';
 import 'package:ezy_buy/features/home_page/data/models/product_model.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
 
 class CartProvider with ChangeNotifier {
@@ -28,6 +35,37 @@ class CartProvider with ChangeNotifier {
         (product) => CartModel(
             productId: productId, qty: quantity, cartId: product.cartId));
     notifyListeners();
+  }
+
+  final usersDB = FirebaseFirestore.instance.collection("users");
+
+  Future<void> addToCartFirebase(
+      {required String productId,
+      required int qty,
+      required BuildContext context}) async {
+    final User? user = AppFirebase.fireAuth.currentUser;
+    if (user == null) {
+      AppFunction.showWariningAlert(
+          context: context, title: "No user found", press: () {});
+      return;
+    }
+    final uid = user.uid;
+    final cartId = const Uuid().v4();
+    try {
+      usersDB.doc(uid).update({
+        'userCart': FieldValue.arrayUnion([
+          {
+            "cartId": cartId,
+            'productId': productId,
+            'quantity': qty,
+          }
+        ]),
+      });
+      await fetchCart();
+      Fluttertoast.showToast(msg: "Item has been added to cart");
+    } catch (e) {
+      rethrow;
+    }
   }
 
   double getToTal({required ProductProvider? productProvider}) {
@@ -59,6 +97,36 @@ class CartProvider with ChangeNotifier {
 
   void clearCart() {
     _cartItems.clear();
+    notifyListeners();
+  }
+
+  Future<void> fetchCart() async {
+    User? user = AppFirebase.fireAuth.currentUser;
+    if (user == null) {
+      log("the function has been called and the user is null");
+      _cartItems.clear();
+      return;
+    }
+    try {
+      final userDoc = await usersDB.doc(user.uid).get();
+      final data = userDoc.data();
+      if (data == null || !data.containsKey("userCart")) {
+        return;
+      }
+      final leng = userDoc.get("userCart").length;
+      for (int index = 0; index < leng; index++) {
+        _cartItems.putIfAbsent(
+          userDoc.get('userCart')[index]['productId'],
+          () => CartModel(
+            cartId: userDoc.get('userCart')[index]['cartId'],
+            productId: userDoc.get('userCart')[index]['productId'],
+            qty: userDoc.get('userCart')[index]['quantity'],
+          ),
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
     notifyListeners();
   }
 }

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../cart_page/presentaion/view_model/provider/cart_provider.dart';
+
 class LatestArrival extends StatelessWidget {
   const LatestArrival({super.key, required this.model, this.productId});
   final ProductModel model;
@@ -15,7 +17,9 @@ class LatestArrival extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productModel = Provider.of<ProductModel>(context);
+
     final viewedRecntly = Provider.of<ViewedRecentlyProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
 
     Size size = MediaQuery.of(context).size;
     return Padding(
@@ -63,24 +67,29 @@ class LatestArrival extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        FavouriteIcon(productId: productModel.productId),
-                        const SizedBox(
-                          width: 9,
-                        ),
-                        Flexible(
-                            child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: const Material(
-                              color: Color.fromARGB(255, 152, 154, 167),
-                              child: Padding(
-                                padding: EdgeInsets.all(1.5),
-                                child: Icon(Icons.add_shopping_cart_outlined),
-                              )),
-                        )),
-                      ],
+                    FittedBox(
+                      child: Row(
+                        children: [
+                          FavouriteIcon(productId: productModel.productId),
+                          IconButton(
+                            onPressed: () {
+                              if (cartProvider.isProductInCart(
+                                  producId: productModel.productId)) {
+                                return;
+                              }
+                              cartProvider.addCartItem(
+                                  productId: productModel.productId);
+                            },
+                            icon: Icon(
+                              cartProvider.isProductInCart(
+                                      producId: productModel.productId)
+                                  ? Icons.check
+                                  : Icons.add_shopping_cart_rounded,
+                              size: 18,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 10,

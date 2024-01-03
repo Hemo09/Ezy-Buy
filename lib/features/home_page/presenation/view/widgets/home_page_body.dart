@@ -2,36 +2,44 @@ import 'package:ezy_buy/features/home_page/presenation/view/widgets/card_swiper.
 import 'package:ezy_buy/features/home_page/presenation/view/widgets/grid_categoey.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/widgets/latest_arrival_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../data/models/product_model.dart';
+import '../../view_model/product_provider.dart';
 
 class HomepageBody extends StatelessWidget {
   const HomepageBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0),
+    final productProvider = Provider.of<ProductProvider>(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CardSwiperItems(),
-            SizedBox(
+            const CardSwiperItems(),
+            const SizedBox(
               height: 15,
             ),
-            Text(
-              "Lates Arrival",
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
+            Visibility(
+              visible: productProvider.getProduct.isNotEmpty,
+              child: const Text(
+                "Lates Arrival",
+                style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
+              ),
             ),
-            LatestArrivalList(),
-            Text(
+            const LatestArrivalList(),
+            const Text(
               "Categories",
               style: TextStyle(fontSize: 23, fontWeight: FontWeight.w700),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            GridCategories(),
+            const GridCategories(),
           ],
         ),
       ),

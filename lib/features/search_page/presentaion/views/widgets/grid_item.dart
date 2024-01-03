@@ -1,4 +1,5 @@
 import 'package:ezy_buy/core/helper/favourite_icon.dart';
+import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
@@ -91,13 +92,22 @@ class GridViewItem extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(3.0),
                             child: IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (cartProvider.isProductInCart(
                                     producId: getFindById.productId)) {
                                   return;
                                 }
-                                cartProvider.addCartItem(
-                                    productId: getFindById.productId);
+                                try {
+                                  await cartProvider.addToCartFirebase(
+                                      productId: getFindById.productId,
+                                      qty: 1,
+                                      context: context);
+                                } catch (error) {
+                                  AppFunction.showWariningAlert(
+                                      context: context,
+                                      title: error.toString(),
+                                      press: () {});
+                                }
                               },
                               icon: Icon(cartProvider.isProductInCart(
                                       producId: getFindById.productId)

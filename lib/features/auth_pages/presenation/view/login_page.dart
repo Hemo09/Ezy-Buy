@@ -1,7 +1,6 @@
 import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/helper/widgets/default_button.dart';
 import 'package:ezy_buy/core/helper/widgets/default_text_form.dart';
-import 'package:ezy_buy/core/helper/widgets/sign_in_google_button.dart';
 import 'package:ezy_buy/core/utils/constants.dart';
 import 'package:ezy_buy/core/utils/widgets/app_name_shimmer.dart';
 import 'package:ezy_buy/features/auth_pages/presenation/view/inner_screen/loading_indicator.dart';
@@ -235,53 +234,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(
                       height: 20,
-                    ),
-                    SizedBox(
-                      height: kBottomNavigationBarHeight + 10,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: SizedBox(
-                                height: kBottomNavigationBarHeight,
-                                child: FittedBox(child: SignInGooglButton(
-                                  press: () async {
-                                    await AuthFunction.signInWithGoogle(
-                                        context: context);
-                                  },
-                                ))),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Expanded(
-                            child: SizedBox(
-                              height: kBottomNavigationBarHeight,
-                              child: FittedBox(
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.all(8),
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 219, 217, 217),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Guest?",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black),
-                                    )),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
                     ),
                   ],
                 ),

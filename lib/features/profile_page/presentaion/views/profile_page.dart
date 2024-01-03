@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/utils/constants.dart';
 import 'package:ezy_buy/features/auth_pages/data/models/user_model.dart';
@@ -17,7 +15,10 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   User? user = AppFirebase.fireAuth.currentUser;
   bool _isLoading = true;
   UserModel? userModel;
@@ -54,6 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),

@@ -1,4 +1,3 @@
-import 'package:ezy_buy/core/utils/constants.dart';
 import 'package:ezy_buy/features/auth_pages/presenation/view/inner_screen/loading_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

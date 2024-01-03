@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ezy_buy/core/helper/favourite_icon.dart';
 import 'package:ezy_buy/features/cart_page/data/models/cart_model.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
@@ -58,9 +60,17 @@ class CustomItemCart extends StatelessWidget {
                           Column(
                             children: [
                               IconButton(
-                                  onPressed: () {
-                                    cartProvider.removeOneProduct(
-                                        productId: getFindById.productId);
+                                  onPressed: () async {
+                                    try {
+                                      await cartProvider
+                                          .removeCartItemFromFirebase(
+                                        cartId: cartModelProvider.cartId!,
+                                        productId: getFindById.productId,
+                                        qty: cartModelProvider.qty!,
+                                      );
+                                    } catch (error) {
+                                      log(error.toString());
+                                    }
                                   },
                                   icon: const Icon(
                                     Icons.clear,

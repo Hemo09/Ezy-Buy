@@ -44,9 +44,8 @@ class CartPage extends StatelessWidget {
                         AppFunction.showWariningAlert(
                             context: context,
                             title: "Remove Items",
-                            press: () {
-                              cartProvider.clearCart();
-                              GoRouter.of(context).pop();
+                            press: () async {
+                              await cartProvider.clearCartFromFirebase();
                             });
                       },
                       icon: const Icon(

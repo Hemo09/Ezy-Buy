@@ -129,4 +129,38 @@ class CartProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<void> clearCartFromFirebase() async {
+    User? user = AppFirebase.fireAuth.currentUser;
+    try {
+      await usersDB.doc(user!.uid).update({"userCart": []});
+      _cartItems.clear();
+    } catch (e) {
+      rethrow;
+    }
+    notifyListeners();
+  }
+
+  Future<void> removeCartItemFromFirebase(
+      {required String cartId,
+      required String productId,
+      required int qty}) async {
+    User? user = AppFirebase.fireAuth.currentUser;
+    try {
+      await usersDB.doc(user!.uid).update({
+        "userCart": FieldValue.arrayRemove([
+          {
+            "cartId": cartId,
+            'productId': productId,
+            'quantity': qty,
+          }
+        ])
+      });
+      _cartItems.remove(productId);
+      await fetchCart();
+    } catch (e) {
+      rethrow;
+    }
+    notifyListeners();
+  }
 }

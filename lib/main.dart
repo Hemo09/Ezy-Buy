@@ -1,6 +1,7 @@
 import 'package:ezy_buy/core/theme/theme_data.dart';
 import 'package:ezy_buy/core/theme/theme_provider.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
+import 'package:ezy_buy/features/auth_pages/presenation/view_model/user_provider.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/home_page/presenation/view_model/product_provider.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/view_model/viewed_recently_provider/viewed_recently_provider.dart';
@@ -56,6 +57,9 @@ class MyApp extends StatelessWidget {
               }),
               ChangeNotifierProvider(create: (context) {
                 return ViewedRecentlyProvider();
+              }),
+              ChangeNotifierProvider(create: (context) {
+                return UserProvider();
               }),
             ],
             child: Consumer<ThemeProvider>(

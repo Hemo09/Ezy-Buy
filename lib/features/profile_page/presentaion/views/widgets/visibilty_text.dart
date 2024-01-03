@@ -1,19 +1,27 @@
+import 'package:ezy_buy/core/utils/constants.dart';
+import 'package:ezy_buy/features/auth_pages/presenation/view/inner_screen/loading_indicator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VisibiltyText extends StatelessWidget {
-  const VisibiltyText({super.key});
+  const VisibiltyText({super.key, required this.isLoading, required this.user});
+  final bool isLoading;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
-    return const Visibility(
-      visible: false,
-      child: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Text(
-          "Please login to have ultimate access",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
+    return LoadingManager(
+      isLoading: isLoading,
+      child: Visibility(
+        visible: user == null ? true : false,
+        child: const Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Text(
+            "Please login to have ultimate access",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),

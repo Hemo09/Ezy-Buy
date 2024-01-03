@@ -1,5 +1,8 @@
 import 'package:ezy_buy/core/utils/app_images.dart';
+import 'package:ezy_buy/core/utils/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 class AppFunction {
@@ -204,6 +207,57 @@ class AppFunction {
       {String? value, String? password}) {
     if (value != password) {
       return 'Passwords do not match';
+    }
+    return null;
+  }
+
+  static void showToast({required String text}) {
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+}
+
+class AuthFunction {
+  static Future<UserCredential?> signUpUser(
+      {required String email, required String password}) async {
+    try {
+      final credential =
+          await AppFirebase.fireAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      AppFunction.showToast(text: "Created User");
+      return credential;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        AppFunction.showToast(text: "weak-password");
+      } else if (e.code == 'email-already-in-use') {
+        AppFunction.showToast(text: "email-already-in-use");
+      }
+    } catch (e) {
+      AppFunction.showToast(text: e.toString());
+    }
+    return null;
+  }
+
+  static Future<UserCredential?> loginUser(
+      {required String email, required String password}) async {
+    try {
+      final credential = await AppFirebase.fireAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+      return credential;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        AppFunction.showToast(text: 'user-not-found');
+      } else if (e.code == 'wrong-password') {
+        AppFunction.showToast(text: 'wrong-password');
+      }
     }
     return null;
   }

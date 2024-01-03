@@ -22,7 +22,7 @@ class DefaultTextForm extends StatelessWidget {
   final bool? secure;
   final String hint;
   final IconData? suffix;
-  final IconData? prefix;
+  final Widget? prefix;
 
   final Color? color;
   final void Function()? pressIcon;
@@ -45,12 +45,7 @@ class DefaultTextForm extends StatelessWidget {
         keyboardType: type,
         obscureText: secure!,
         decoration: InputDecoration(
-          prefixIcon: IconButton(
-              onPressed: pressIcon,
-              icon: Icon(
-                prefix,
-                color: color,
-              )),
+          prefixIcon: prefix,
           suffixIcon: IconButton(
               onPressed: pressIcon,
               icon: Icon(

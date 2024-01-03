@@ -5,9 +5,14 @@ import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/user_ema
 import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/visibilty_text.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePageBody extends StatelessWidget {
+class ProfilePageBody extends StatefulWidget {
   const ProfilePageBody({super.key});
 
+  @override
+  State<ProfilePageBody> createState() => _ProfilePageBodyState();
+}
+
+class _ProfilePageBodyState extends State<ProfilePageBody> {
   @override
   Widget build(BuildContext context) {
     return const Padding(

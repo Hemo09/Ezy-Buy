@@ -208,19 +208,28 @@ class _SignUpState extends State<SignUp> {
                     height: 40,
                   ),
                   Center(
-                      child: isLoading
-                          ? const CircularProgressIndicator()
-                          : DefaultButton(
-                              text: "Sign up",
-                              press: () {
-                                isValid.currentState!.validate();
-                                setState(() {});
-                              })),
-                  const SizedBox(
-                    height: 15,
+                    child: isLoading
+                        ? const CircularProgressIndicator()
+                        : DefaultButton(
+                            text: "Sign up",
+                            press: () async {
+                              if (isValid.currentState!.validate()) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                AuthFunction.signUpUser(
+                                    email: emailController.text,
+                                    password: passController.text);
+                                GoRouter.of(context)
+                                    .push(NamedRouteScreen.kRootPage);
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            }),
                   ),
                   const SizedBox(
-                    height: 9,
+                    height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

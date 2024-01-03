@@ -1,15 +1,22 @@
 import 'package:ezy_buy/core/theme/theme_provider.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/core/utils/app_router.dart';
+import 'package:ezy_buy/core/utils/constants.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/widgets/custom_list_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class ProfileFooter extends StatelessWidget {
+class ProfileFooter extends StatefulWidget {
   const ProfileFooter({super.key});
 
+  @override
+  State<ProfileFooter> createState() => _ProfileFooterState();
+}
+
+class _ProfileFooterState extends State<ProfileFooter> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     ThemeProvider themeProv = Provider.of<ThemeProvider>(context);
@@ -60,17 +67,26 @@ class ProfileFooter extends StatelessWidget {
               pathImage: AppImages.privacy,
               press: () {}),
           Center(
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                      ),
-                      onPressed: () {
-                        GoRouter.of(context).push(NamedRouteScreen.kLogin);
-                      },
-                      icon: const Icon(IconlyLight.login),
-                      label: const Text("Login")))),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+                onPressed: () async {
+                  if (user == null) {
+                    GoRouter.of(context).push(NamedRouteScreen.kLogin);
+                  } else {
+                    await AppFirebase.fireAuth.signOut();
+                    if (!mounted) return;
+                    GoRouter.of(context).push(NamedRouteScreen.kRootPage);
+                  }
+                },
+                icon: Icon(user == null ? Icons.login : Icons.logout_outlined),
+                label: Text(user == null ? "Login" : "LogOut"),
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -84,7 +84,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     validate: (value) {
                       return AppFunction.validatorEmailField(value: value);
                     },
-                    prefix: Icons.email_outlined,
+                    prefix: const Icon(Icons.email_outlined),
                     type: TextInputType.emailAddress,
                     hint: "emailaddress@example.com"),
                 const SizedBox(

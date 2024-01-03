@@ -23,34 +23,52 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) {
-          return ThemeProvider();
-        }),
-        ChangeNotifierProvider(create: (context) {
-          return ProductProvider();
-        }),
-        ChangeNotifierProvider(create: (context) {
-          return CartProvider();
-        }),
-        ChangeNotifierProvider(create: (context) {
-          return WishListProvider();
-        }),
-        ChangeNotifierProvider(create: (context) {
-          return ViewedRecentlyProvider();
-        }),
-      ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
-          return MaterialApp.router(
-            routerConfig: AppRoutes.routes,
-            debugShowCheckedModeBanner: false,
-            theme: Style.themeData(
-                isDarkTheme: themeProvider.isDarkMode, context: context),
+    return FutureBuilder(
+        future: Firebase.initializeApp(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Scaffold(
+              body: Center(
+                child: SelectableText(
+                    "An error has been occured ${snapshot.error}"),
+              ),
+            );
+          }
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) {
+                return ThemeProvider();
+              }),
+              ChangeNotifierProvider(create: (context) {
+                return ProductProvider();
+              }),
+              ChangeNotifierProvider(create: (context) {
+                return CartProvider();
+              }),
+              ChangeNotifierProvider(create: (context) {
+                return WishListProvider();
+              }),
+              ChangeNotifierProvider(create: (context) {
+                return ViewedRecentlyProvider();
+              }),
+            ],
+            child: Consumer<ThemeProvider>(
+              builder: (context, themeProvider, child) {
+                return MaterialApp.router(
+                  routerConfig: AppRoutes.routes,
+                  debugShowCheckedModeBanner: false,
+                  theme: Style.themeData(
+                      isDarkTheme: themeProvider.isDarkMode, context: context),
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
+        });
   }
 }

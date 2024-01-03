@@ -1,3 +1,4 @@
+import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/helper/widgets/default_button.dart';
 import 'package:ezy_buy/core/helper/widgets/default_text_form.dart';
 import 'package:ezy_buy/core/helper/widgets/sign_in_google_button.dart';
@@ -135,8 +136,11 @@ class _LoginPageState extends State<LoginPage> {
                           ? const CircularProgressIndicator()
                           : DefaultButton(
                               text: "Login",
-                              press: () {
+                              press: () async {
                                 validate.currentState!.validate();
+                                AuthFunction.loginUser(
+                                    email: emailController.text.trim(),
+                                    password: passController.text.trim());
                               })),
                   const SizedBox(
                     height: 15,

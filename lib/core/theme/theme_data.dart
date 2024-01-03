@@ -1,4 +1,4 @@
-import 'package:ezy_buy/constants.dart';
+import 'package:ezy_buy/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class Style {

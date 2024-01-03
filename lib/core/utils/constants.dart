@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
 import 'package:ezy_buy/features/home_page/data/models/cateogy_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class AppColor {
@@ -34,4 +37,12 @@ class AppConstants {
     CategoryModel(id: AppImages.shoes, image: AppImages.shoes, name: "Shoes"),
     CategoryModel(id: AppImages.watch, image: AppImages.watch, name: "Watches"),
   ];
+}
+
+class AppFirebase {
+  //firebase
+
+  static FirebaseAuth fireAuth = FirebaseAuth.instance;
+  static FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  static FirebaseStorage fireStorage = FirebaseStorage.instance;
 }

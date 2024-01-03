@@ -2,8 +2,12 @@ import 'package:ezy_buy/core/helper/function/app_fucntion.dart';
 import 'package:ezy_buy/core/helper/widgets/default_button.dart';
 import 'package:ezy_buy/core/helper/widgets/default_text_form.dart';
 import 'package:ezy_buy/core/helper/widgets/sign_in_google_button.dart';
+import 'package:ezy_buy/core/utils/constants.dart';
 import 'package:ezy_buy/core/utils/widgets/app_name_shimmer.dart';
+import 'package:ezy_buy/features/auth_pages/presenation/view/inner_screen/loading_indicator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/utils/app_router.dart';
 
@@ -29,6 +33,49 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
+  Future<void> _loginFct() async {
+    final isValid = validate.currentState!.validate();
+    FocusScope.of(context).unfocus();
+
+    if (isValid) {
+      validate.currentState!.save();
+
+      try {
+        setState(() {
+          isLoading = true;
+        });
+        await AppFirebase.fireAuth.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passController.text.trim(),
+        );
+        Fluttertoast.showToast(
+          msg: "Login Successful",
+          toastLength: Toast.LENGTH_SHORT,
+          textColor: Colors.white,
+        );
+        if (!mounted) return;
+
+        GoRouter.of(context).push(NamedRouteScreen.kRootPage);
+      } on FirebaseAuthException catch (error) {
+        await AppFunction.showWariningAlert(
+          context: context,
+          title: "An error has been occured ${error.message}",
+          press: () {},
+        );
+      } catch (error) {
+        await AppFunction.showWariningAlert(
+          context: context,
+          title: "An error has been occured $error",
+          press: () {},
+        );
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -40,150 +87,112 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Form(
-              key: validate,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Center(child: CustomAppNamedShimmer()),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "Hi There! 👋",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff203a6e),
+      body: LoadingManager(
+        isLoading: isLoading,
+        child: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Form(
+                key: validate,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Center(child: CustomAppNamedShimmer()),
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  const Text(
-                    "Welcome back, Sign in to Your account.",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 19,
+                    const Text(
+                      "Hi There! 👋",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff203a6e),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const Text(
-                    "Email",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
+                    const Text(
+                      "Welcome back, Sign in to Your account.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 19,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  DefaultTextForm(
-                    hint: "Email",
-                    type: TextInputType.emailAddress,
-                    secure: false,
-                    validate: (value) {
-                      if (value!.isEmpty) {
-                        return "Email must not be empty";
-                      }
-                      return null;
-                    },
-                    controller: emailController,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    "Password",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
+                    const SizedBox(
+                      height: 40,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  DefaultTextForm(
-                    hint: "Password",
-                    type: TextInputType.visiblePassword,
-                    secure: secure,
-                    suffix: secure
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    pressIcon: () {
-                      setState(() {
-                        secure = !secure;
-                      });
-                    },
-                    color: Colors.black,
-                    validate: (value) {
-                      if (value!.isEmpty) {
-                        return "password must not be empty";
-                      }
-                      return null;
-                    },
-                    controller: passController,
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Center(
-                      child: isLoading
-                          ? const CircularProgressIndicator()
-                          : DefaultButton(
-                              text: "Login",
-                              press: () async {
-                                validate.currentState!.validate();
-                                AuthFunction.loginUser(
-                                    email: emailController.text.trim(),
-                                    password: passController.text.trim());
-                              })),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Center(
-                    child: TextButton(
-                      onPressed: () {
-                        GoRouter.of(context)
-                            .push(NamedRouteScreen.kForgetPassword);
+                    const Text(
+                      "Email",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    DefaultTextForm(
+                      hint: "Email",
+                      type: TextInputType.emailAddress,
+                      secure: false,
+                      validate: (value) {
+                        return AppFunction.validatorEmailField(value: value);
                       },
-                      child: const Text(
-                        "Forgot Password?",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          color: Colors.teal,
-                        ),
+                      controller: emailController,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text(
+                      "Password",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 9,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account?",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                          color: Colors.grey.withOpacity(.8),
-                        ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    DefaultTextForm(
+                      hint: "Password",
+                      type: TextInputType.visiblePassword,
+                      secure: secure,
+                      suffix: secure
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      pressIcon: () {
+                        setState(() {
+                          secure = !secure;
+                        });
+                      },
+                      color: Colors.black,
+                      validate: (value) {
+                        return AppFunction.validatorPasswordField(value: value);
+                      },
+                      controller: passController,
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Center(
+                      child: DefaultButton(
+                        text: "Login",
+                        press: () async {
+                          _loginFct();
+                        },
                       ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          GoRouter.of(context).push(NamedRouteScreen.kSignUp);
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          GoRouter.of(context)
+                              .push(NamedRouteScreen.kForgetPassword);
                         },
                         child: const Text(
-                          "Sign up",
+                          "Forgot Password?",
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 17,
@@ -191,53 +200,91 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: kBottomNavigationBarHeight + 10,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    ),
+                    const SizedBox(
+                      height: 9,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Expanded(
-                          flex: 2,
-                          child: SizedBox(
-                              height: kBottomNavigationBarHeight,
-                              child: FittedBox(child: SignInGooglButton())),
+                        Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15,
+                            color: Colors.grey.withOpacity(.8),
+                          ),
                         ),
                         const SizedBox(
-                          width: 5,
+                          width: 6,
                         ),
-                        Expanded(
-                          child: SizedBox(
-                            height: kBottomNavigationBarHeight,
-                            child: FittedBox(
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.all(8),
-                                    backgroundColor: const Color.fromARGB(
-                                        255, 219, 217, 217),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                  ),
-                                  onPressed: () {},
-                                  child: const Text(
-                                    "Guest?",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                  )),
+                        InkWell(
+                          onTap: () {
+                            GoRouter.of(context).push(NamedRouteScreen.kSignUp);
+                          },
+                          child: const Text(
+                            "Sign up",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 17,
+                              color: Colors.teal,
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: kBottomNavigationBarHeight + 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: SizedBox(
+                                height: kBottomNavigationBarHeight,
+                                child: FittedBox(child: SignInGooglButton(
+                                  press: () async {
+                                    await AuthFunction.signInWithGoogle(
+                                        context: context);
+                                  },
+                                ))),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: SizedBox(
+                              height: kBottomNavigationBarHeight,
+                              child: FittedBox(
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.all(8),
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 219, 217, 217),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                    child: const Text(
+                                      "Guest?",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                    )),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

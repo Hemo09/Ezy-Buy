@@ -217,9 +217,11 @@ class _SignUpState extends State<SignUp> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                AuthFunction.signUpUser(
+                                await AuthFunction.signUpUser(
+                                    name: nameController.text,
                                     email: emailController.text,
                                     password: passController.text);
+                                if (!mounted) return;
                                 GoRouter.of(context)
                                     .push(NamedRouteScreen.kRootPage);
                                 setState(() {

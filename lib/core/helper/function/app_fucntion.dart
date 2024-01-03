@@ -1,9 +1,14 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ezy_buy/core/utils/app_images.dart';
+import 'package:ezy_buy/core/utils/app_router.dart';
 import 'package:ezy_buy/core/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AppFunction {
   static Future<void> pickedImage({
@@ -225,13 +230,26 @@ class AppFunction {
 
 class AuthFunction {
   static Future<UserCredential?> signUpUser(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required String name}) async {
     try {
       final credential =
           await AppFirebase.fireAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      User? user = AppFirebase.fireAuth.currentUser;
+      final uid = user!.uid;
+      await AppFirebase.fireStore.collection("users").doc(uid).set({
+        'userId': uid,
+        'userName': name,
+        'userImage': "",
+        'userEmail': email,
+        'createdAt': Timestamp.now(),
+        'userWish': [],
+        'userCart': [],
+      });
       AppFunction.showToast(text: "Created User");
       return credential;
     } on FirebaseAuthException catch (e) {
@@ -257,8 +275,35 @@ class AuthFunction {
         AppFunction.showToast(text: 'user-not-found');
       } else if (e.code == 'wrong-password') {
         AppFunction.showToast(text: 'wrong-password');
+      } else {
+        AppFunction.showToast(text: e.toString());
       }
     }
     return null;
+  }
+
+  static Future<dynamic> signInWithGoogle(
+      {required BuildContext context}) async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      AppFunction.showToast(text: "Login Success");
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) async {
+          await GoRouter.of(context).push(NamedRouteScreen.kRootPage);
+        },
+      );
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on Exception catch (e) {
+      AppFunction.showToast(text: e.toString());
+    }
   }
 }

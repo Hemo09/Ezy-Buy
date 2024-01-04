@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../auth_pages/presenation/view_model/user_provider.dart';
 import '../home_page/presenation/view_model/product_provider.dart';
 
 class RootPage extends StatefulWidget {
@@ -42,10 +43,12 @@ class _RootPageState extends State<RootPage> {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     final wishlistProvider =
         Provider.of<WishlistProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
       Future.wait({
         productsProvider.fetchProducts(),
+        userProvider.fetchUserInfo(),
       });
       Future.wait({
         cartProvider.fetchCart(),

@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
                 return CartProvider();
               }),
               ChangeNotifierProvider(create: (context) {
-                return WishListProvider();
+                return WishlistProvider();
               }),
               ChangeNotifierProvider(create: (context) {
                 return ViewedRecentlyProvider();

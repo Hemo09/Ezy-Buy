@@ -12,7 +12,7 @@ class WishList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final wishListProvider = Provider.of<WishListProvider>(context);
+    final wishListProvider = Provider.of<WishlistProvider>(context);
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
@@ -27,7 +27,7 @@ class WishList extends StatelessWidget {
               },
             ),
             title: Text(
-              "Wish List (${wishListProvider.getWishListItem.length})",
+              "Wish List (${wishListProvider.getWishlistItems.length})",
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
             ),
             actions: [
@@ -40,9 +40,9 @@ class WishList extends StatelessWidget {
                   AppFunction.showWariningAlert(
                       context: context,
                       title: "Remove Items",
-                      press: () {
-                        wishListProvider.clearCart();
-                        GoRouter.of(context).pop();
+                      press: () async {
+                        await wishListProvider.clearWishlistFromFirebase();
+                        wishListProvider.clearLocalWishlist();
                       });
                 },
               ),
@@ -56,12 +56,12 @@ class WishList extends StatelessWidget {
                 builder: (context, index) {
                   return Center(
                       child: GridViewItem(
-                    productId: wishListProvider.getWishListItem.values
+                    productId: wishListProvider.getWishlistItems.values
                         .toList()[index]
-                        .productId!,
+                        .id!,
                   ));
                 },
-                itemCount: wishListProvider.getWishListItem.length,
+                itemCount: wishListProvider.getWishlistItems.length,
                 crossAxisCount: 2),
           ),
         ],

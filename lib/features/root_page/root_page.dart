@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:ezy_buy/features/cart_page/presentaion/view_model/provider/cart_provider.dart';
 import 'package:ezy_buy/features/cart_page/presentaion/views/cart_page.dart';
 import 'package:ezy_buy/features/home_page/presenation/view/home_page.dart';
+import 'package:ezy_buy/features/profile_page/presentaion/view_model/wish_list_provider/wish_list_provider.dart';
 import 'package:ezy_buy/features/profile_page/presentaion/views/profile_page.dart';
 import 'package:ezy_buy/features/search_page/presentaion/views/search_page.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,16 @@ class _RootPageState extends State<RootPage> {
     final productsProvider =
         Provider.of<ProductProvider>(context, listen: false);
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final wishlistProvider =
+        Provider.of<WishlistProvider>(context, listen: false);
+
     try {
       Future.wait({
         productsProvider.fetchProducts(),
       });
       Future.wait({
         cartProvider.fetchCart(),
+        wishlistProvider.fetchWishlist(),
       });
     } catch (error) {
       log(error.toString());

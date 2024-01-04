@@ -1,9 +1,16 @@
+import 'package:ezy_buy/features/profile_page/data/models/order_model.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 
-class AllOrderItem extends StatelessWidget {
-  const AllOrderItem({super.key});
+class AllOrderItem extends StatefulWidget {
+  const AllOrderItem({super.key, required this.ordersModelAdvanced});
+  final OrdersModelAdvanced ordersModelAdvanced;
 
+  @override
+  State<AllOrderItem> createState() => _AllOrderItemState();
+}
+
+class _AllOrderItemState extends State<AllOrderItem> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -15,7 +22,7 @@ class AllOrderItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(19.0),
             child: FancyShimmerImage(
-              imageUrl: "https://i.ibb.co/8r1Ny2n/20-Nike-Air-Force-1-07.png",
+              imageUrl: widget.ordersModelAdvanced.imageUrl,
               height: size.height * .15,
               width: size.width * .3,
             ),
@@ -32,10 +39,10 @@ class AllOrderItem extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: size.width * .33,
-                      child: const Text(
-                        "titlevvvvvvtitletitletitlevvvtitletitletitletitletitletitletitletitlevtitlevvvvvvvtitletitle",
+                      child: Text(
+                        widget.ordersModelAdvanced.productTitle,
                         maxLines: 2,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.normal,
                         ),
@@ -52,9 +59,9 @@ class AllOrderItem extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  "price :16.5\$",
-                  style: TextStyle(
+                Text(
+                  "${widget.ordersModelAdvanced.price}\$",
+                  style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: Colors.red),
@@ -62,9 +69,9 @@ class AllOrderItem extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  "Qty: 6 ",
-                  style: TextStyle(
+                Text(
+                  "Qty: ${widget.ordersModelAdvanced.quantity} ",
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
